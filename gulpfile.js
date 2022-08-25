@@ -1,22 +1,42 @@
-var gulp       	   = require('gulp'),						//gulp
-	del            = require('del'),						//清空目录
-	imagemin       = require("gulp-imagemin"),				//图片压缩
-	jpegRecompress = require("imagemin-jpeg-recompress"),	//jpg压缩
-	pngquant       = require("imagemin-pngquant");			//png压缩
+const { series, parallel, src, dest } = require('gulp');
+// const imagemin = require('gulp-imagemin')
+const tinypng = require('gulp-tinypng-compress');
+const clean = require('gulp-clean');
 
-gulp.task('delDir', function(){
-	return del('min-img/**');
-})
+function cleanImagemin(cb) {
+	// body omitted
+	src('./imagemin/')
+        .pipe(clean());
+	cb();
+}
 
-gulp.task('default', ['delDir'], function(){
-	gulp.src('img/**/*.jpg')
-	.pipe(imagemin({use:[jpegRecompress({loops:6})]}))
-	.pipe(gulp.dest('min-img/'))
+function cleanTinypng(cb) {
+	// body omitted
+	src('/tinypng', {read: false})
+    //     .pipe(clean());
+	cb();
+}
 
-	gulp.src('img/**/*.png')
-	.pipe(imagemin({progressive:false,use:[pngquant()]}))
-	.pipe(gulp.dest('min-img/'))
 
-	gulp.src('img/**/*.!(jpg|png)')
-	.pipe(gulp.dest('min-img/'))
-})
+const imageminTask = (cb) => {
+	src('/images/**/*.{png,jpg,jpeg}')
+	.pipe(imagemin())
+	.pipe(dest('/imagemin/'))
+
+	cb()
+}
+
+const tinypngTask = (cb) => {
+	// src('/images/**/*.{png,jpg,jpeg}')
+	// .pipe(tinypng({
+	// 	key: 'xwdHxSdZkSBLj8Rf9Rv8qqqXvQmvRpHL',
+	// 	// sigFile: '/.tinypng-sigs',
+	// 	log: true
+	// }))
+	// .pipe(dest('/tinypng/'));
+
+	cb()
+}
+
+exports.tinypng = series(cleanTinypng, tinypngTask)
+exports.imagemin = series(cleanImagemin, imageminTask)

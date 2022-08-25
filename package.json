@@ -1,22 +1,23 @@
 {
-  "name": "gulp-min",
-  "version": "1.0.0",
-  "description": "gulp minImage",
+  "name": "gulp-minImg",
+  "version": "1.0.1",
+  "description": "gulp minImage png jpg",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tinypng": "gulp tinypng",
+    "imagemin": "gulp imagemin"
   },
   "keywords": [
     "gulp",
-    "minImga"
+    "minImga",
+    "tinypng"
   ],
   "author": "wghe110",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "del": "^2.2.0",
-    "gulp-imagemin": "^2.4.0",
-    "imagemin-jpeg-recompress": "^4.3.0",
-    "imagemin-pngquant": "^4.2.2"
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-imagemin": "^8.0.0",
+    "gulp-tinypng-compress": "^1.2.5"
   }
 }
