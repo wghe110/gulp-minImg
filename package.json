@@ -1,23 +1,26 @@
 {
-  "name": "gulp-minImg",
-  "version": "1.0.1",
-  "description": "gulp minImage png jpg",
+  "name": "gulp-minimg",
+  "version": "1.0.0",
+  "description": "gulp imagemin tinypng",
   "main": "index.js",
   "scripts": {
-    "tinypng": "gulp tinypng",
-    "imagemin": "gulp imagemin"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "gulp",
-    "minImga",
-    "tinypng"
-  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wghe110/gulp-minImg.git"
+  },
   "author": "wghe110",
   "license": "ISC",
-  "devDependencies": {
+  "bugs": {
+    "url": "https://github.com/wghe110/gulp-minImg/issues"
+  },
+  "homepage": "https://github.com/wghe110/gulp-minImg#readme",
+  "dependencies": {
     "gulp": "^4.0.2",
-    "gulp-clean": "^0.4.0",
-    "gulp-imagemin": "^8.0.0",
     "gulp-tinypng-compress": "^1.2.5"
+  },
+  "devDependencies": {
+    "gulp-clean": "^0.4.0"
   }
 }

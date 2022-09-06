@@ -1,42 +1,22 @@
-const { series, parallel, src, dest } = require('gulp');
-// const imagemin = require('gulp-imagemin')
-const tinypng = require('gulp-tinypng-compress');
+const { series, src, dest } = require('gulp');
 const clean = require('gulp-clean');
+const tinypng = require('gulp-tinypng-compress');
 
-function cleanImagemin(cb) {
-	// body omitted
-	src('./imagemin/')
-        .pipe(clean());
-	cb();
+/** tinypn start */
+const cleanTinypng = (cb) => {
+    src(['tinypng/**/*', '!tinypng/.gitkeep'], {read: false})
+        .pipe(clean())
+    cb()
 }
 
-function cleanTinypng(cb) {
-	// body omitted
-	src('/tinypng', {read: false})
-    //     .pipe(clean());
-	cb();
+const tinypngFn = (cb) => {
+    src('images/**/*.{png,jpg,jpeg}')
+        .pipe(tinypng({
+            key: 'xwdHxSdZkSBLj8Rf9Rv8qqqXvQmvRpHL',
+            // sigFile: 'tinypng/.tinypng-sigs',
+            log: true
+        })).pipe(dest('tinypng'))
 }
 
-
-const imageminTask = (cb) => {
-	src('/images/**/*.{png,jpg,jpeg}')
-	.pipe(imagemin())
-	.pipe(dest('/imagemin/'))
-
-	cb()
-}
-
-const tinypngTask = (cb) => {
-	// src('/images/**/*.{png,jpg,jpeg}')
-	// .pipe(tinypng({
-	// 	key: 'xwdHxSdZkSBLj8Rf9Rv8qqqXvQmvRpHL',
-	// 	// sigFile: '/.tinypng-sigs',
-	// 	log: true
-	// }))
-	// .pipe(dest('/tinypng/'));
-
-	cb()
-}
-
-exports.tinypng = series(cleanTinypng, tinypngTask)
-exports.imagemin = series(cleanImagemin, imageminTask)
+exports.tinypng = series(cleanTinypng, tinypngFn)
+/** tinypn end */
